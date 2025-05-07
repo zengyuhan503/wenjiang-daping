@@ -4,7 +4,7 @@ import * as echarts from "echarts";
 import mapjson from "../assets/map.json";
 import mapJsonSvg from "../assets/wenjiang.svg";
 import mapsvg from "../assets/mapsvg.svg";
-import graphicsvg from "../assets/graphic.svg";
+import graphicsvg from "../assets/map.png";
 import axios from "axios";
 
 onMounted(() => {
@@ -19,7 +19,7 @@ onMounted(() => {
     const ellipsePath = "M50,50 m-40,0 a40,30 0 1,0 80,0 a40,30 0 1,0 -80,0";
 
     const markerData = [
-      { name: "星河world科创城3", value: [103.836776, 30.697996] },
+      { name: "星河world科创城3", value: [103.695006, 30.887757] },
       { name: "光华公园站", value: [103.87, 30.71] },
       { name: "南熏大道", value: [103.85, 30.69] },
       { name: "天欣驾校西门训练基地", value: [103.91, 30.67] },
@@ -28,6 +28,7 @@ onMounted(() => {
     ];
     let options = {
       geo: {
+        id: "geo",
         map: "wenjiang",
         region: [],
         select: {
@@ -37,14 +38,30 @@ onMounted(() => {
         roam: true,
         itemStyle: {
           normal: {
-            areaColor: "transparent", // 设置默认区域颜色
-            borderColor: "#000", // 设置默认边框颜色
-            borderWidth: 1, // 设置默认边框宽度
+            borderColor: "#00ffff", // 亮蓝色边框
+            borderWidth: 3, // 边框宽度
+            shadowBlur: 20, // 虚影范围
+            shadowColor: "rgba(0, 255, 255, 0.8)", // 蓝色光晕
+            shadowOffsetX: 0,
+            shadowOffsetY: 0,
+            areaColor: {
+              type: "image",
+              image: graphicsvg,
+              repeat: "repeat",
+            },
           },
           emphasis: {
-            areaColor: "transparent", // 设置 hover 区域颜色，与默认颜色相同
-            borderColor: "#000", // 设置 hover 边框颜色，与默认颜色相同
-            borderWidth: 1, // 设置 hover 边框宽度，与默认宽度相同
+            borderColor: "#00ffff", // 亮蓝色边框
+            borderWidth: 3, // 边框宽度
+            shadowBlur: 20, // 虚影范围
+            shadowColor: "rgba(0, 255, 255, 0.8)", // 蓝色光晕
+            shadowOffsetX: 0,
+            shadowOffsetY: 0,
+            areaColor: {
+              type: "image",
+              image: graphicsvg,
+              repeat: "repeat",
+            },
           },
         },
         label: {
@@ -59,24 +76,6 @@ onMounted(() => {
       tooltip: {
         show: false,
       },
-      graphic: [
-        {
-          scale: [0.9, 0.9],
-          type: "image",
-          id: "img1",
-          style: {
-            image: graphicsvg,
-            width: 740,
-            height: 740,
-          },
-          rotation: -0,
-          origin: [370, 370],
-          // 用 geo 坐标定位
-          // position: [90, 0], // 初始位置，必须设为 [0,0]，否则 geoCoord 不生效
-          // position: [0, 0], // ✅ 必须显式设为 [0, 0]
-          geoCoord: [103.836776, 30.697996], // 你自己替换成你想放的位置
-        },
-      ],
       series: [
         //=====1.静态椭圆形黄点=====
         {
@@ -187,21 +186,6 @@ onMounted(() => {
     setTimeout(() => {
       setDefaultHighlight();
       createCustomTooltips();
-      const pixel = myChart.convertToPixel({ geoIndex: 0 }, [103.836776, 30.697996]);
-      const zoom = myChart.getModel().getComponent("geo").get("zoom");
-      initPixel = [320 / pixel[0], 500 / pixel[1]];
-      let new_pixel = [
-        pixel[0] - pixel[0] * initPixel[0],
-        pixel[1] - pixel[1] * initPixel[1],
-      ];
-      console.log(new_pixel);
-      myChart.setOption({
-        graphic: {
-          id: "img1",
-          position: new_pixel,
-          scale: [zoom * 0.9, zoom * 0.9],
-        },
-      });
     }, 0);
 
     // 鼠标交互
@@ -226,26 +210,10 @@ onMounted(() => {
         createCustomTooltips();
       }
     });
-
     // 地图缩放或拖动时更新 tooltip 位置
-    myChart.on("georoam", () => {
+    myChart.on("georoam", (e) => {
       clearAllHighlight();
       createCustomTooltips();
-      let geo = myChart.getModel().getComponent("geo");
-      const pixel = myChart.convertToPixel({ geoIndex: 0 }, [103.836776, 30.697996]);
-
-      const zoom = geo.get("zoom");
-      let new_pixel = [
-        pixel[0] - pixel[0] * initPixel[0],
-        pixel[1] - pixel[1] * initPixel[1],
-      ];
-      myChart.setOption({
-        graphic: {
-          id: "img1",
-          position: new_pixel,
-          scale: [zoom * 0.9, zoom * 0.9], // 根据缩放倍数动态设置 scale
-        },
-      });
     });
   });
 });
