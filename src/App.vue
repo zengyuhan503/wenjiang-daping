@@ -123,7 +123,7 @@ onMounted(() => {
     .screen-content-right-item {
       width: 100%;
       height: 263px;
-      background: url("./src/assets/image/chat-bg.png") no-repeat;
+      background: url("./assets/image/chat-bg.png") no-repeat;
       background-size: 100% 100%;
       position: relative;
       margin-bottom: 23px;
@@ -134,7 +134,7 @@ onMounted(() => {
         position: absolute;
         width: 100%;
         height: 40px;
-        background: url("./src/assets/image/title-bg.png") no-repeat;
+        background: url("./assets/image/title-bg.png") no-repeat;
         background-size: 100% 100%;
         background-position: 0 0;
         text-align: left;
@@ -176,7 +176,7 @@ body,
   font-size: 14px;
 }
 .screen-wrapper {
-  background: url("./src/assets/image/man-back.png") no-repeat;
+  background: url("./assets/image/man-back.png") no-repeat;
   background-size: 100% 100%;
 }
 p {

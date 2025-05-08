@@ -50,7 +50,7 @@ import RollingNumber from "./RollingNumber.vue";
     gap: 1.4375rem;
     .item {
       width: 100%;
-      background: url("./src/assets/image/section1-back.png") no-repeat;
+      background: url("../assets/image/section1-back.png") no-repeat;
       background-size: 100% 100%;
 
       display: flex;

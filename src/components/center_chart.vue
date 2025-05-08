@@ -8,7 +8,8 @@ import graphicsvg from "../assets/map.png";
 import axios from "axios";
 
 onMounted(() => {
-  axios.get(mapjson).then((res) => {
+  console.log("请求地图map")
+  axios.get('./map.json').then((res) => {
     console.log(res);
     let data = res.data;
 
@@ -215,7 +216,9 @@ onMounted(() => {
       clearAllHighlight();
       createCustomTooltips();
     });
-  });
+  }).catch((err) => {
+    console.log(err);
+  })
 });
 </script>
 
