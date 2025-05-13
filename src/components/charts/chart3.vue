@@ -6,12 +6,12 @@
       <div class="data">
         <ul>
           <li>
-            <p style="margin-bottom: 8px;">面积</p>
+            <p style="margin-bottom: 12px">面积</p>
             <p>{{ item.area }} <span>万/㎡</span></p>
           </li>
 
           <li>
-            <p style="margin-bottom: 8px;">空置率</p>
+            <p style="margin-bottom: 12px">空置率</p>
             <p>
               <span style="color: #ebb242; font-weight: bold">{{ item.vacancy }}%</span>
             </p>
@@ -30,6 +30,7 @@ const chartData = [
   { name: "温江旭辉Cmall", area: 12, vacancy: 12.3 },
   { name: "高新未来广场", area: 85, vacancy: 25.6 },
   { name: "滨江中心", area: 108, vacancy: 7.8 },
+  { name: "滨江中心", area: 108, vacancy: 7.8 },
 ];
 
 const createOption = (item) => ({
@@ -39,8 +40,6 @@ const createOption = (item) => ({
       `${item.name}<br/>${
         name === "空置率" ? `空置率: ${value}%` : `面积: ${item.area}㎡`
       }`,
-    backgroundColor: "rgba(0,0,0,0.7)",
-    textStyle: { color: "#fff" },
   },
   series: [
     {
@@ -94,6 +93,7 @@ onMounted(() => {
 });
 </script>
 <style scoped lang="less">
+*{font-family: Microsoft YaHei UI, Microsoft YaHei UI;}
 .chart3 {
   display: flex;
   justify-content: space-around;
@@ -103,10 +103,28 @@ onMounted(() => {
   color: #fff;
   padding: 23px 0;
   padding-top: 43px;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    height: 8px; /* 高度 */
+    background: linear-gradient(to right, #18b2ff, rgba(24, 178, 255, 0.2)) transparent; /* 背景透明 */
+    border-radius: 1px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent; /* 轨道透明 */
+  }
+  &::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(to right, #18b2ff, rgba(24, 178, 255, 0.2));
+    border-radius: 1px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-image: linear-gradient(to right, #18b2ff, rgba(24, 178, 255, 0.4));
+  }
 }
 
 .chart-box {
-  width: 33%;
+  flex: 0 0 33%; /* 固定宽度为 33% */
+  min-width: 33%; /* 避免压缩 */
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -125,6 +143,8 @@ onMounted(() => {
     width: 80px;
     height: 80px;
     margin: 0 auto;
+    background: url("../../assets/image/chart3-back.png") no-repeat;
+    background-size: 100%;
   }
 
   .data {
@@ -146,12 +166,10 @@ onMounted(() => {
           margin-right: 0;
         }
         p {
-          font-family: Microsoft YaHei UI, Microsoft YaHei UI;
-          font-weight: 600;
-          font-size: 16px;
-          font-weight: bold;
+          font-size: 14px;
           line-height: 19px;
           margin-bottom: 0;
+          font-weight: 200;
         }
         span {
           color: rgba(255, 255, 255, 0.5);

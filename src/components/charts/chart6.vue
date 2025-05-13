@@ -26,18 +26,19 @@ const initChart = () => {
         color: "#FFFFFF",
       },
     },
+    
     yAxis: {
       type: "value",
       axisLine: {
         show: false,
       },
       axisLabel: {
-        color: "#666",
+        color: "#E6F7FF",
       },
       splitLine: {
         lineStyle: {
           type: "dashed",
-          color: "#eee",
+          color: "rgba(230,247,255,0.2)",
         },
       },
     },
@@ -57,9 +58,9 @@ const initChart = () => {
       },
     ],
     grid: {
-      left: "3%",
-      right: "4%",
-      bottom: "3%",
+      left: "40px",
+      right: "5%",
+      bottom: "5%",
       top: "25%",
       containLabel: true,
     },

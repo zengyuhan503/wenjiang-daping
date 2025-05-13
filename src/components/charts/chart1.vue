@@ -71,6 +71,7 @@ const option = {
       formatter: function (value) {
         return value.length > 5 ? value.slice(0, 5) + "…" : value;
       },
+      color:"#FFFFFF"
     },
 
     axisLine: {
@@ -85,11 +86,12 @@ const option = {
     min: 0,
     axisLabel: {
       formatter: "{value}%",
+      color: "#E6F7FF",
     },
     splitLine: {
       lineStyle: {
         type: "dashed",
-        color: "#E6F7FF",
+        color: " rgba(230,247,255,0.2)",
       },
     },
   },

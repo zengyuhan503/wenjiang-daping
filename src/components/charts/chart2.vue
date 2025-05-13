@@ -28,9 +28,8 @@ onMounted(() => {
 
     tooltip: {
       trigger: "axis",
-      axisPointer: { type: "shadow" },
-      textStyle: {
-        color: "#fff",
+      axisPointer: {
+        type: "shadow",
       },
     },
     grid: {
@@ -53,7 +52,7 @@ onMounted(() => {
       splitLine: {
         lineStyle: {
           type: "dashed",
-          color: "#444444",
+          color: " rgba(230,247,255,0.2)",
         },
       },
     },

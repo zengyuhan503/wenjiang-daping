@@ -32,6 +32,7 @@ const props = defineProps({
 });
 
 const countupRef = ref(null);
+let countUp = null;
 const classicValue = ref(0);
 
 const animateClassic = () => {
@@ -52,7 +53,7 @@ const animateClassic = () => {
 
 onMounted(() => {
   if (props.type === "countup") {
-    const countUp = new CountUp(countupRef.value, props.value, {
+    countUp = new CountUp(countupRef.value, props.value, {
       duration: props.duration / 1000,
       decimalPlaces: props.decimals,
       separator: props.separator,
@@ -66,7 +67,8 @@ onMounted(() => {
 watch(
   () => props.value,
   (newVal) => {
-    if (props.type === "classic") animateClassic();
+    classicValue.value = newVal;
+    countUp.update(newVal);
   }
 );
 </script>
@@ -75,12 +77,12 @@ watch(
   <div class="rolling-number">
     <template v-if="type === 'countup'">
       <span ref="countupRef" />
-      <span style="margin-left: 0.5rem;">{{ unit }}</span>
+      <span style="margin-left: 0.5rem">{{ unit }}</span>
     </template>
 
     <template v-else-if="type === 'odometer'">
       <Odometer
-        :value="value"
+        :value="props.value"
         :format="`(,ddd).${'d'.repeat(decimals)}`"
         class="odometer"
       />

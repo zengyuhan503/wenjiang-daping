@@ -29,7 +29,7 @@ const option = {
     },
   },
   grid: {
-    left: "23px",
+    left: "30px",
     right: "23px",
     bottom: "5%",
     top: "25%",

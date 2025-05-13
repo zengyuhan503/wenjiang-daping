@@ -1,40 +1,99 @@
 <script setup>
+import { ref, onMounted, watch } from "vue";
 import RollingNumber from "./RollingNumber.vue";
+const val = ref(50);
+const upDate_type = ref("countup");
+const timer = ref(null);
+const isMounted = ref(false);
+onMounted(() => {
+  isMounted.value = true;
+  setTimeout(() => {
+    val.value = Math.floor(Math.random() * 100000); 
+  },2000)
+});
 </script>
 <template>
   <div class="screen-header">
     <div class="items">
       <div class="item">
         <p class="label">已入驻面积</p>
-        <RollingNumber class="value" :value="601131.98" :decimals="2" unit="㎡" />
+        <RollingNumber
+          class="value"
+          :value="val"
+          :type="upDate_type"
+          :decimals="2"
+          unit="㎡"
+        />
       </div>
       <div class="item">
         <p class="label">未入驻面积</p>
-        <RollingNumber class="value" :value="601131.98" :decimals="2" unit="㎡" />
+        <RollingNumber
+          class="value"
+          :value="val"
+          :type="upDate_type"
+          :decimals="2"
+          unit="㎡"
+        />
       </div>
       <div class="item">
         <p class="label">总面积</p>
-        <RollingNumber class="value" :value="601131.98" :decimals="2" unit="㎡" />
+        <RollingNumber
+          class="value"
+          :value="val"
+          :type="upDate_type"
+          :decimals="2"
+          unit="㎡"
+        />
       </div>
       <div class="item">
         <p class="label">入驻率</p>
-        <RollingNumber class="value" :value="601131.98" :decimals="2" unit="%" />
+        <RollingNumber
+          class="value"
+          :value="val"
+          :type="upDate_type"
+          :decimals="2"
+          unit="%"
+        />
       </div>
       <div class="item">
         <p class="label">入驻企业（含集群）</p>
-        <RollingNumber class="value" :value="601131.98" :decimals="2" unit="户" />
+        <RollingNumber
+          class="value"
+          :value="val"
+          :type="upDate_type"
+          :decimals="2"
+          unit="户"
+        />
       </div>
       <div class="item">
         <p class="label">在温注册企业</p>
-        <RollingNumber class="value" :value="601131.98" :decimals="2" unit="户" />
+        <RollingNumber
+          class="value"
+          :value="val"
+          :type="upDate_type"
+          :decimals="2"
+          unit="户"
+        />
       </div>
       <div class="item">
         <p class="label">在温注册率</p>
-        <RollingNumber class="value" :value="601131.98" :decimals="2" unit="%" />
+        <RollingNumber
+          class="value"
+          :value="val"
+          :type="upDate_type"
+          :decimals="2"
+          unit="%"
+        />
       </div>
       <div class="item">
         <p class="label">平均租金</p>
-        <RollingNumber class="value" :value="601131.98" :decimals="2" unit="元/㎡" />
+        <RollingNumber
+          class="value"
+          :value="val"
+          :type="upDate_type"
+          :decimals="2"
+          unit="元/㎡"
+        />
       </div>
     </div>
   </div>

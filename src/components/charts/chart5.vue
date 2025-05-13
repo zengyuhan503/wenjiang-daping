@@ -29,7 +29,7 @@ const option = {
     },
   },
   grid: {
-    left: "5%",
+    left: "35px",
     right: "5%",
     bottom: "5%",
     top: "25%",
@@ -47,7 +47,7 @@ const option = {
     max: 100,
     min: 0,
     axisLabel: {
-      formatter: "{value}%",
+      formatter: "{value}",
       color: "#fff",
     },
     axisLine: { lineStyle: { color: "#fff" } },
