@@ -10,26 +10,6 @@ import Chart4 from "./components/charts/chart4.vue";
 import Chart5 from "./components/charts/chart5.vue";
 import Chart6 from "./components/charts/chart6.vue";
 import CenterChart from "./components/center_chart.vue";
-const handleScreenAuto = () => {
-  const designDraftWidth = 1920; //设计稿的宽度
-  const designDraftHeight = 960; //设计稿的高度
-  // 根据屏幕的变化适配的比例
-  const scale =
-    document.documentElement.clientWidth / document.documentElement.clientHeight <
-    designDraftWidth / designDraftHeight
-      ? document.documentElement.clientWidth / designDraftWidth
-      : document.documentElement.clientHeight / designDraftHeight;
-  // 缩放比例
-  document.querySelector(
-    "#screen"
-  ).style.transform = `scale(${scale}) translate(-50%, -50%)`;
-};
-
-onMounted(() => {
-  // handleScreenAuto();
-  // // 绑定自适应函数   ---防止浏览器栏变化后不再适配
-  // window.onresize = () => handleScreenAuto();
-});
 </script>
 
 <template>
@@ -43,20 +23,20 @@ onMounted(() => {
         <div class="screen-content-left">
           <div class="screen-content-left-item">
             <div class="screen-title">
-              <span>实时入驻情况</span>
+              <span class="title">实时入驻情况</span>
             </div>
             <Chart1 />
           </div>
           <div class="screen-content-left-item">
             <div class="screen-title">
-              <span>企业类型</span>
-              <span style="color: #fff;font-weight: 600;">总计：2210</span>
+              <span class="title">企业类型</span>
+              <span class="note" style="color: #fff;font-weight: 600;font-size: 17px;">总计：2210</span>
             </div>
             <Chart2 />
           </div>
           <div class="screen-content-left-item">
             <div class="screen-title">
-              <span>招租信息需求单</span>
+              <span class="title">招租信息需求单</span>
             </div>
             <Chart3 />
           </div>
@@ -67,21 +47,21 @@ onMounted(() => {
         <div class="screen-content-right">
           <div class="screen-content-right-item">
             <div class="screen-title">
-              <span>入驻趋势</span>
+              <span class="title">入驻趋势</span>
             </div>
             <Chart4 />
           </div>
           <div class="screen-content-right-item">
             <div class="screen-title">
-              <span>租金趋势</span>
-              <span>单位：元</span>
+              <span class="title">租金趋势</span>
+              <span  class="note" >单位：元</span>
             </div>
             <Chart5 />
           </div>
           <div class="screen-content-right-item">
             <div class="screen-title">
-              <span>规上企业</span>
-              <span style="color: #e6f7ff">单位：户</span>
+              <span class="title">规上企业</span>
+              <span  class="note" >单位：户</span>
             </div>
             <Chart6 />
           </div>
@@ -144,15 +124,17 @@ onMounted(() => {
         justify-content: space-between;
         align-items: center;
         span {
-          font-size: 1rem;
+          font-size: 17px;
           color: #e6f7ff;
-          font-weight: 400;
-          &:first-child {
+          color: #ffffff;
+          &.title{
             font-weight: bold;
-            color: #fff;
+             text-shadow: 0px 4px 10px rgba(94, 251, 253, 0.2);
           }
-          &:last-child {
-            text-shadow: 0px 4px 10px rgba(94, 251, 253, 0.2);
+          &.note{
+            font-size: 14px;
+            color: #e6f7ff;
+            font-weight: 300;
           }
         }
       }

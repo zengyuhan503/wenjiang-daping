@@ -19,6 +19,7 @@ const chart_data = ref([
   { name: "新时泛亚大厦", registerRate: 12.3, entryRate: 8.2 },
   { name: "新时泛亚大厦", registerRate: 12.3, entryRate: 8.2 },
 ]);
+const showCount = 3;
 
 const option = {
   grid: {
@@ -39,44 +40,71 @@ const option = {
       showDetail: false,
       showDataShadow: false,
       handleSize: 0,
+      moveHandleSize: 0,
+      borderRadius: 10,
       height: 12,
       bottom: 0,
       start: 0,
-      end: 45,
-      fillerColor: "#0a477d",
+      zoomLock: true,
+      endValue: showCount, // 设置初始显示的数量,
+      left: 0,
+      right: 0,
+      brushSelect: false,
+      fillerColor: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+        { offset: 0, color: "#18B2FF" },
+        { offset: 1, color: "rgba(24,178,255,0.2)" },
+      ]),
       backgroundColor: "transparent",
       borderColor: "transparent",
       xAxisIndex: 0,
+      handleStyle: {
+        borderRadius: 10, // 虽然手柄隐藏，但仍可设置圆角
+        color: "#fff",
+        borderColor: "#999",
+      },
+      borderRadius: 5,
+    },
+    {
+      type: "inside", // 不显示滑动条，仅通过滚轮控制
+      xAxisIndex: 0,
+      start: 0,
+      end: 30, // 初始视图范围
+      zoomOnMouseWheel: false, // 禁止滚轮缩放
+      moveOnMouseWheel: true, // 开启滚轮移动
+      moveOnAxis: "x", // 仅沿 x 轴移动
+      throttle: 0,
     },
   ],
   legend: {
     data: ["注册率", "入驻率"],
     itemWidth: 12,
     itemHeight: 12,
-    right: "15px",
+    right: "18px",
+    itemGap: 30,
     top: "10px",
     textStyle: {
       color: "#FFFFFF", // 设置文字颜色
-      fontSize: 12, // 可选：设置字体大小
+      fontSize: 14, // 可选：设置字体大小
     },
   },
   xAxis: {
     type: "category",
     data: chart_data.value.map((item) => item.name),
+    axisTick: { show: false }, // 隐藏刻度线
     axisLabel: {
       interval: 0, // 强制显示所有刻度标签
       rotate: 0,
-      margin: 10,
-      fontSize: "12px",
+      fontSize: "14px",
       formatter: function (value) {
-        return value.length > 5 ? value.slice(0, 5) + "…" : value;
+        return value.length > 6 ? value.slice(0, 6) + "…" : value;
       },
-      color:"#FFFFFF"
+      color: "#FFFFFF",
     },
 
     axisLine: {
       lineStyle: {
-        color: "#FFFFFF",
+        color: "#BAE7FF",
+        showMinLine: false,
       },
     },
   },
@@ -87,6 +115,10 @@ const option = {
     axisLabel: {
       formatter: "{value}%",
       color: "#E6F7FF",
+      fontSize: "14px",
+      verticalAlign: "top", // 让数字与横线居中
+      padding: [-5, 0, 0, 0],
+      margin: 15,
     },
     splitLine: {
       lineStyle: {
@@ -96,39 +128,12 @@ const option = {
     },
   },
   grid: {
-    left: "13px",
-    right: "23px",
-    bottom: "23px",
+    left: "20px",
+    right: "5%",
+    bottom: "5%",
     top: "25%",
     containLabel: true,
   },
-  series: [
-    {
-      name: "注册率",
-      type: "bar",
-      data: chart_data.value.map((item) => item.registerRate),
-
-      barWidth: 16,
-      itemStyle: {
-        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-          { offset: 0, color: "#18B2FF" },
-          { offset: 1, color: "rgba(24,178,255,0.2)" },
-        ]),
-      },
-    },
-    {
-      name: "入驻率",
-      type: "bar",
-      barWidth: 16,
-      data: chart_data.value.map((item) => item.entryRate),
-      itemStyle: {
-        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-          { offset: 0, color: "#21F3F3" },
-          { offset: 1, color: "rgba(30,231,231,0.2)" },
-        ]),
-      },
-    },
-  ],
   animation: true,
   animationDuration: 2000, // 初次渲染动画
   animationDurationUpdate: 2000, // 👈 滚动后新柱子的动画时间
@@ -144,6 +149,35 @@ const initChart = () => {
     observer.observe(chartRef.value);
     setTimeout(() => {
       chartCenter.resize();
+      let options = {
+        series: [
+          {
+            name: "注册率",
+            type: "bar",
+            data: chart_data.value.map((item) => item.registerRate),
+            barWidth: 16,
+            itemStyle: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                { offset: 0, color: "#18B2FF" },
+                { offset: 1, color: "rgba(24,178,255,0.2)" },
+              ]),
+            },
+          },
+          {
+            name: "入驻率",
+            type: "bar",
+            barWidth: 16,
+            data: chart_data.value.map((item) => item.entryRate),
+            itemStyle: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                { offset: 0, color: "#21F3F3" },
+                { offset: 1, color: "rgba(30,231,231,0.2)" },
+              ]),
+            },
+          },
+        ],
+      };
+      chartCenter.setOption(options);
     }, 100);
     window.addEventListener("resize", () => chartCenter.resize());
   });

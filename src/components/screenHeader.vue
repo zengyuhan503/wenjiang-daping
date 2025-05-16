@@ -8,8 +8,8 @@ const isMounted = ref(false);
 onMounted(() => {
   isMounted.value = true;
   setTimeout(() => {
-    val.value = Math.floor(Math.random() * 100000); 
-  },2000)
+    val.value = Math.floor(Math.random() * 100000);
+  }, 2000);
 });
 </script>
 <template>
@@ -111,10 +111,28 @@ onMounted(() => {
       width: 100%;
       background: url("../assets/image/section1-back.png") no-repeat;
       background-size: 100% 100%;
-
       display: flex;
       justify-content: space-between;
       flex-direction: column;
+      &:nth-child(5) {
+        background: url("../assets/image/section1-back1.png") no-repeat;
+        background-size: 100% 100%;
+      }
+      &:nth-child(6) {
+        background: url("../assets/image/section1-back1.png") no-repeat;
+        background-size: 100% 100%;
+      }
+
+      &:nth-child(7) {
+        background: url("../assets/image/section1-back1.png") no-repeat;
+        background-size: 100% 100%;
+      }
+
+      &:nth-child(8) {
+        background: url("../assets/image/section1-back1.png") no-repeat;
+        background-size: 100% 100%;
+      }
+
       .label {
         font-family: Microsoft YaHei UI, Microsoft YaHei UI;
         font-weight: 600;

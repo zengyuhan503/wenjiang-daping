@@ -93,7 +93,9 @@ onMounted(() => {
 });
 </script>
 <style scoped lang="less">
-*{font-family: Microsoft YaHei UI, Microsoft YaHei UI;}
+* {
+  font-family: Microsoft YaHei UI, Microsoft YaHei UI;
+}
 .chart3 {
   display: flex;
   justify-content: space-around;
@@ -106,19 +108,29 @@ onMounted(() => {
   overflow: auto;
 
   &::-webkit-scrollbar {
-    height: 8px; /* 高度 */
-    background: linear-gradient(to right, #18b2ff, rgba(24, 178, 255, 0.2)) transparent; /* 背景透明 */
-    border-radius: 1px;
+    height: 10px; /* 滚动条高度 */
   }
+
   &::-webkit-scrollbar-track {
-    background: transparent; /* 轨道透明 */
+    background: transparent; /* 轨道透明，不设置颜色 */
   }
+
   &::-webkit-scrollbar-thumb {
-    background-image: linear-gradient(to right, #18b2ff, rgba(24, 178, 255, 0.2));
+    background: linear-gradient(
+      to right,
+      #18b2ff,
+      rgba(24, 178, 255, 0.2)
+    ); /* 滑块的颜色 */
     border-radius: 1px;
+    width: 2px; /* 设置滑块的宽度 */
   }
+
   &::-webkit-scrollbar-thumb:hover {
-    background-image: linear-gradient(to right, #18b2ff, rgba(24, 178, 255, 0.4));
+    background: linear-gradient(
+      to right,
+      #18b2ff,
+      rgba(24, 178, 255, 0.4)
+    ); /* 滑块 hover 时的颜色 */
   }
 }
 
@@ -133,7 +145,7 @@ onMounted(() => {
   text-align: center;
   padding: 20px 0 0 0;
   p {
-    font-size: 14px;
+    font-size: 16px;
     margin-bottom: 4px;
     white-space: nowrap;
     text-align: left;

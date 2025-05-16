@@ -29,7 +29,7 @@ const option = {
     },
   },
   grid: {
-    left: "35px",
+    left: "20px",
     right: "5%",
     bottom: "5%",
     top: "25%",
@@ -38,9 +38,24 @@ const option = {
   xAxis: {
     type: "category",
     data: chartData.map((d) => d.year),
-    axisLine: { lineStyle: { color: "#fff" } },
-    axisLabel: { color: "#fff" },
+    axisLine: {
+      lineStyle: {
+        color: "#BAE7FF",
+        showMinLine: false,
+      },
+    },
+    axisLabel: {
+      interval: 0, // 强制显示所有刻度标签
+      rotate: 0,
+      fontSize: "14px",
+      margin:15,
+      formatter: function (value) {
+        return value.length > 5 ? value.slice(0, 5) + "…" : value;
+      },
+      color: "#FFFFFF",
+    },
     boundaryGap: false,
+    axisTick: { show: false }, // 隐藏刻度线
   },
   yAxis: {
     type: "value",
@@ -49,9 +64,13 @@ const option = {
     axisLabel: {
       formatter: "{value}",
       color: "#fff",
+      fontSize: 14,
+      margin: 15,
+      verticalAlign: "top", // 让数字与横线居中
+      padding: [-5, 0, 0, 0],
     },
     axisLine: { lineStyle: { color: "#fff" } },
-    splitLine: { lineStyle: { type: "dashed", color: "#444" } },
+    splitLine: { lineStyle: { type: "dashed", color: "rgba(230,247,255,0.2)" } },
   },
   series: [
     {

@@ -43,10 +43,9 @@ import DateTimeDisplay from "./DateTimeDisplay.vue";
   .title {
     height: 3.875rem;
     font-weight: normal;
-    font-size: 32px;
     letter-spacing: 3px;
     text-align: center;
-    font-size: 1.75rem;
+    font-size:32px;
     font-weight: bold;
     background: linear-gradient(270deg, #a8e4ff 0%, #ffffff 100%);
     -webkit-background-clip: text;

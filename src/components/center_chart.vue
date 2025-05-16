@@ -1,9 +1,6 @@
 <script setup>
 import { onMounted } from "vue";
 import * as echarts from "echarts";
-import mapjson from "../assets/map.json";
-import mapJsonSvg from "../assets/wenjiang.svg";
-import mapsvg from "../assets/mapsvg.svg";
 import graphicsvg from "../assets/map.png";
 import axios from "axios";
 
@@ -16,7 +13,7 @@ onMounted(() => {
 
       var chartDom = document.getElementById("main");
       var myChart = echarts.init(chartDom);
-      echarts.registerMap("wenjiang", mapjson);
+      echarts.registerMap("wenjiang", data);
       // SVG椭圆路径 (cx=50 cy=50 rx=40 ry=30)
       const ellipsePath = "M50,50 m-40,0 a40,30 0 1,0 80,0 a40,30 0 1,0 -80,0";
 
@@ -102,9 +99,6 @@ onMounted(() => {
           id: "geo",
           map: "wenjiang",
           region: [],
-          label: {
-            show: false, // 禁用默认状态下的标签显示
-          },
           select: {
             disabled: true,
           },
@@ -150,19 +144,25 @@ onMounted(() => {
         tooltip: {
           trigger: "item", // scatter 推荐使用 'item'
           formatter: function (params) {
-            console.log(params);
             let data = params.data;
+
+            if (params.componentType == "geo") {
+              return "";
+            }
+            if (data == undefined) {
+              return "";
+            }
             const name = params.name || "";
             const value = params.value || [];
             const totalArea = data.area || "0";
             const companyCount = data.occupancy_company_num || "0";
             const bigCompanyCount = data.up_company_num || "0";
             return `
-            <div style="font-size: 14px;margin-bottom:5px; color: #fff;text-align: left;">
-              <div style="font-weight: bold; margin-bottom: 4px;">${name}</div>
-              <div>总面积：${totalArea}m²</div>
-              <div>入驻企业数：${companyCount}</div>
-              <div>规上企业数：${bigCompanyCount}</div>
+            <div style="font-size: 14px;color: #fff;text-align: left;">
+              <div style="font-size: 16px; margin-bottom: 10px;">${name}</div>
+              <div style="margin-bottom:3px; ">总面积：${totalArea}m²</div>
+              <div style="margin-bottom:3px; ">入驻企业数：${companyCount}</div>
+              <div style="margin-bottom:3px; ">规上企业数：${bigCompanyCount}</div>
             </div>
           `;
           },
@@ -240,14 +240,18 @@ onMounted(() => {
           currentHighlightIndex.length > 0
             ? currentHighlightIndex
             : defaultHighlightIndexes;
+        let className = "";
+        if (arguments.length > 0) {
+          className = "tooltip_active";
+        }
         indexs.forEach((index) => {
           const point = markerData[index];
           const pos = myChart.convertToPixel({ geoIndex: 0 }, point.value);
 
           const tooltip = document.createElement("div");
-          tooltip.className = "tooltip";
+          tooltip.className = `tooltip ${className}`;
           tooltip.innerHTML = `
-          <div>
+          <div class="${className}">
             <div class="name">${point.name}</div>
             <div class="before"></div>
           </div>`;
@@ -354,14 +358,22 @@ onMounted(() => {
 }
 .tooltip > div {
   display: block;
-  padding: 5px;
-  background: rgba(255, 205, 69, 0.5);
+  padding: 0px 12px;
+  background: rgba(255, 205, 69, 0.2);
   box-shadow: inset 0px 0px 20px 1px rgba(255, 205, 69, 0.65);
   border-radius: 0px 0px 0px 0px;
   border: 1px solid #ffcd45;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  &.tooltip_active {
+    background: rgba(255, 205, 69, 0.5);
+  }
   .name {
     font-family: Microsoft YaHei UI, Microsoft YaHei UI;
-    font-weight: 600;
+    font-weight: normal;
     font-size: 16px;
     color: #ffffff;
     text-align: center;
